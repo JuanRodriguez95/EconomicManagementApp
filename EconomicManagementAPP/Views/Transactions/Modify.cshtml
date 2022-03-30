@@ -1,0 +1,46 @@
+﻿@model Transactions
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h1>Modify Transaction: @Model.Description</h1>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="Modify">   
+    <div class="mb-3">
+        <label asp-for="TransactionDate" class="form-label"></label>
+        <input type="date" asp-for="TransactionDate" class="form-control" />
+        <span asp-validation-for="TransactionDate" class="text-danger"> </span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Total" class="form-label"></label>
+        <input type="text" asp-for="Total" class="form-control" />
+        <span asp-validation-for="Total" class="text-danger"> </span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="OperationTypeId" class="form-label"></label>
+        <input type="number" asp-for="OperationTypeId" class="form-control" />
+        <span asp-validation-for="OperationTypeId" class="text-danger"> </span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input type="text" asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"> </span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AccountId" class="form-label"></label>
+        <input type="number" asp-for="AccountId" class="form-control" />
+        <span asp-validation-for="AccountId" class="text-danger"> </span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label"></label>
+        <input type="number" asp-for="CategoryId" class="form-control" />
+        <span asp-validation-for="CategoryId" class="text-danger"> </span>
+    </div>
+    <button type="submit" class="btn btn-primary">Modidy</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

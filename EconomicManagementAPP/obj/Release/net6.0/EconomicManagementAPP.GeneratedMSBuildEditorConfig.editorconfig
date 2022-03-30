@@ -1,0 +1,144 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = EconomicManagementAPP
+build_property.RootNamespace = EconomicManagementAPP
+build_property.ProjectDir = E:\SIESA\NetProyects\EconomicManagementAPP-main\EconomicManagementAPP\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\SIESA\NetProyects\EconomicManagementAPP-main\EconomicManagementAPP
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Accounts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Accounts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Accounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Accounts/Modify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcTW9kaWZ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/AccountTypes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFR5cGVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/AccountTypes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFR5cGVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/AccountTypes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFR5cGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/AccountTypes/Modify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFR5cGVzXE1vZGlmeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Categories/Modify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xNb2RpZnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Home/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb3RGb3VuZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/OperationTypes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3BlcmF0aW9uVHlwZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/OperationTypes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3BlcmF0aW9uVHlwZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/OperationTypes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3BlcmF0aW9uVHlwZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/OperationTypes/Modify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3BlcmF0aW9uVHlwZXNcTW9kaWZ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Transactions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Transactions/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Transactions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Transactions/Modify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25zXE1vZGlmeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Users/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Users/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Users/Modify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTW9kaWZ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SIESA/NetProyects/EconomicManagementAPP-main/EconomicManagementAPP/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ddrsm0u6qz
