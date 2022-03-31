@@ -1,5 +1,7 @@
 using EconomicManagementAPP.Data;
+using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.Services.AddTransient<RepositorieOperationTypes>();
 builder.Services.AddTransient<RepositorieAccounts>();
 builder.Services.AddTransient<RepositorieCategories>();
 builder.Services.AddTransient<RepositorieTransactions>();
+builder.Services.AddTransient<IUserStore<Users>, UserStore>();
+builder.Services.AddIdentityCore<Users>();
 
 
 builder.Services.AddDbContext<EconomicContext>(options =>

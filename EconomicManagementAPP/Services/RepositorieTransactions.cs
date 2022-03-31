@@ -15,19 +15,5 @@ namespace EconomicManagementAPP.Services
             _context = context;
         }
 
-        /*
-        public async Task Modify(Transactions transactions)
-        {
-            Transactions localTransactions = new Transactions();
-            localTransactions = await _context.Transactions.FindAsync(transactions.Id);
-            localTransactions.TransactionDate = transactions.TransactionDate;
-            localTransactions.Total=transactions.Total;
-            localTransactions.OperationTypeId = transactions.OperationTypeId;
-            localTransactions.Description = transactions.Description;
-            localTransactions.AccountId=transactions.AccountId;
-            localTransactions.CategoryId = transactions.CategoryId;
-            await _context.SaveChangesAsync();
-        }
-        */
     }
 }

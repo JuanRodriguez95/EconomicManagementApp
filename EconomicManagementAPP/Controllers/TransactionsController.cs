@@ -1,6 +1,7 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EconomicManagementAPP.Controllers
 {
@@ -8,34 +9,64 @@ namespace EconomicManagementAPP.Controllers
     {
 
         private readonly RepositorieTransactions repositorieTransactions;
+        private readonly RepositorieAccounts repositorieAccounts;
+        private readonly RepositorieCategories repositorieCategories;
+        private readonly RepositorieOperationTypes repositorieOperationTypes;
 
-        //Inicializamos l variable repositorieAccountTypes para despues inyectarle las funcionalidades de la interfaz
-        public TransactionsController(RepositorieTransactions repositorieTransactions)
+
+        public TransactionsController(RepositorieTransactions repositorieTransactions, RepositorieAccounts repositorieAccounts, RepositorieCategories repositorieCategories, RepositorieOperationTypes repositorieOperationTypes)
         {
             this.repositorieTransactions = repositorieTransactions;
+            this.repositorieAccounts = repositorieAccounts;
+            this.repositorieCategories = repositorieCategories;
+            this.repositorieOperationTypes = repositorieOperationTypes;
         }
 
-        // Creamos index para ejecutar la interfaz
         public async Task<IActionResult> Index()
         {
             var transactions = await repositorieTransactions.ListData();
             return View(transactions);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            int userId = 2;
+            var Model = new TransactionCreationViewModel();
+            Model.Accounts = await GetAccounts(userId);
+            Model.Categories = await GetCategories();
+            Model.OperationTypes = await GetOperationTypes();
+            return View(Model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Transactions transactions)
+        public async Task<IActionResult> Create(TransactionCreationViewModel transactions)
         {
+            int usuarioId = 2;
+
             if (!ModelState.IsValid)
             {
+                transactions.Accounts = await GetAccounts(usuarioId);
+                transactions.Categories = await GetCategories();
+                transactions.OperationTypes = await GetOperationTypes();
                 return View(transactions);
             }
-            
+
+            var account = await repositorieAccounts.GetAccounts(usuarioId);
+
+            if (account is null)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+
+            var category = await repositorieCategories.getById(transactions.CategoryId);
+
+            if (category is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
+            }
+
+            await repositorieAccounts.UpdateAccountTotal(transactions);
+
             await repositorieTransactions.Create(transactions);
-            // Redireccionamos a la lista
             return RedirectToAction("Index");
         }        
 
@@ -96,6 +127,23 @@ namespace EconomicManagementAPP.Controllers
 
             await repositorieTransactions.Delete(Id);
             return RedirectToAction("Index");
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GetAccounts(int UserId)
+        {
+            var accounts = await repositorieAccounts.GetAccounts(UserId);
+            return accounts.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+        }
+        private async Task<IEnumerable<SelectListItem>> GetCategories()
+        {
+            var categories = await repositorieCategories.ListData();
+            return categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+        }
+        private async Task<IEnumerable<SelectListItem>> GetOperationTypes()
+        {
+                var operationTypes = await repositorieOperationTypes.ListData();
+                return operationTypes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+            
         }
     }
 }

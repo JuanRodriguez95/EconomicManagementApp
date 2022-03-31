@@ -1,4 +1,4 @@
-﻿@model Transactions
+﻿@model TransactionCreationViewModel
 @{
     ViewData["Title"] = "Transactions";
 }
@@ -9,18 +9,13 @@
 <form asp-action="Create">
     <div class="mb-3">
         <label asp-for="TransactionDate" class="form-label"></label>
-        <input type="date" asp-for="TransactionDate" class="form-control" />
+        <input asp-for="TransactionDate" class="form-control" />
         <span asp-validation-for="TransactionDate" class="text-danger"> </span>
     </div>
     <div class="mb-3">
         <label asp-for="Total" class="form-label"></label>
-        <input type="text" asp-for="Total" class="form-control" />
+        <input asp-for="Total" class="form-control" />
         <span asp-validation-for="Total" class="text-danger"> </span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="OperationTypeId" class="form-label"></label>
-        <input type="number" asp-for="OperationTypeId" class="form-control" />
-        <span asp-validation-for="OperationTypeId" class="text-danger"> </span>
     </div>
     <div class="mb-3">
         <label asp-for="Description" class="form-label"></label>
@@ -29,13 +24,18 @@
     </div>
     <div class="mb-3">
         <label asp-for="AccountId" class="form-label"></label>
-        <input type="number" asp-for="AccountId" class="form-control" />
+        <select asp-for="AccountId" asp-items="Model.Accounts" class="form-control"></select>
         <span asp-validation-for="AccountId" class="text-danger"> </span>
     </div>
     <div class="mb-3">
         <label asp-for="CategoryId" class="form-label"></label>
-        <input type="number" asp-for="CategoryId" class="form-control" />
+        <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control"></select>
         <span asp-validation-for="CategoryId" class="text-danger"> </span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="OperationTypeId" class="form-label"></label>
+        <select asp-for="OperationTypeId" asp-items="Model.OperationTypes" class="form-control"></select>
+        <span asp-validation-for="OperationTypeId" class="text-danger"> </span>
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
     <a class="btn btn-secondary" asp-action="Index">Cancel</a>

@@ -134,5 +134,7 @@ namespace EconomicManagementAPP.Controllers
             var accountTypes = await repositorieAccountTypes.ListData();
             return accountTypes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
         }
+
+
     }
 }

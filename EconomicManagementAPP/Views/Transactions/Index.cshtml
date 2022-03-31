@@ -12,7 +12,11 @@
     <thead>
         <tr>
             <th>Actions</th>
-            <th>Operation Types</th>
+            <th>Account Id</th>
+            <th>Total</th>
+            <th>Description</th>
+            <th>TransactionDate</th>
+
         </tr>
     </thead>
     <tbody id="reordenable">
@@ -25,9 +29,17 @@
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@transaction.Id">Delete</a>
                 </td>
                 <td>
+                    @transaction.AccountId
+                </td>
+                <td>
+                    @transaction.Total
+                </td>
+                <td>
                     @transaction.Description
                 </td>
-
+                <td>
+                    @transaction.TransactionDate
+                </td>
             </tr>
         }
     </tbody>

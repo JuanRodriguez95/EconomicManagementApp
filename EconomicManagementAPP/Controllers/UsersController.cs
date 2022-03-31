@@ -1,5 +1,6 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
@@ -8,12 +9,13 @@ namespace EconomicManagementAPP.Controllers
     public class UsersController: Controller
     {
         private readonly RepositorieUsers repositorieUsers;
+        private readonly UserManager<Users> userManager;
 
         //Inicializamos  repositorieUsers para despues inyectarle las funcionalidades de la interfaz
-        public UsersController(RepositorieUsers repositorieUsers)
+        public UsersController(RepositorieUsers repositorieUsers,UserManager<Users> userManager)
         {
             this.repositorieUsers = repositorieUsers;
-            
+            this.userManager = userManager;       
         }
 
         // Creamos index para ejecutar la interfaz
@@ -47,11 +49,27 @@ namespace EconomicManagementAPP.Controllers
 
                 return View(users);
             }
-            await repositorieUsers.Create(users);
+            var resultado = await userManager.CreateAsync(users, password: users.Password);
+
+            if (resultado.Succeeded)
+            {
+               // await signInManager.SignInAsync(usuario, isPersistent: true);
+                return RedirectToAction("Index", "Transacciones");
+            }
+            else
+            {
+                foreach (var error in resultado.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return View(users);
+            }
+            //await repositorieUsers.Create(users);
             return RedirectToAction("Index");
         }
 
-        // Hace que la validacion se active automaticamente desde el front mediante el email
+        
         [HttpGet]
         public async Task<IActionResult> VerificaryUsers(string Email)
         {
@@ -67,11 +85,6 @@ namespace EconomicManagementAPP.Controllers
         }
 
 
-
-
-
-        //Actualizar
-        //Este retorna la vista tanto del modify
         [HttpGet]
         public async Task<ActionResult> Modify(int Id)        {
             
@@ -85,7 +98,7 @@ namespace EconomicManagementAPP.Controllers
 
             return View(user);
         }
-        //Este es el que modifica y retorna al index
+        
         [HttpPost]
         public async Task<ActionResult> Modify(Users users)
         {           
@@ -101,12 +114,12 @@ namespace EconomicManagementAPP.Controllers
                 return View(users);
             }
 
-            await repositorieUsers.Modify(users.Id, users);// el que llega
+            await repositorieUsers.Modify(users.Id, users);
             return RedirectToAction("Index");
         }
        
         
-        // Eliminar
+        
         [HttpGet]
         public async Task<IActionResult> Delete(int Id)
         {            

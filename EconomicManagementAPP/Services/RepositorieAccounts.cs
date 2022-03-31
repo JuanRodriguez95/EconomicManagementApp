@@ -18,35 +18,24 @@ namespace EconomicManagementAPP.Services
             _context = context;
         }
 
-
-        // El async va acompañado de Task
-        /*
-        public async Task<bool> Exist(string name)
+        public async Task<IEnumerable<Accounts>> GetAccounts(int userId)
         {
-            var result = await _context.Accounts.Where(u => u.Name == name).FirstOrDefaultAsync();
-            if (result == null)
+            var accounts = await _context.Accounts.Where(a => a.UserId == userId).ToListAsync();
+            return accounts;
+        }
+
+        public async Task UpdateAccountTotal(Transactions transactions)
+        {
+            var account = await _context.Accounts.FindAsync(transactions.AccountId);
+            if(transactions.OperationTypeId == 2)
             {
-                return false;
+                account.Balance = account.Balance + transactions.Total;
             }
             else
             {
-                return true;
+                account.Balance = account.Balance - transactions.Total;
             }
-        }
-
-        
-
-        public async Task Modify(Accounts accounts)
-        {
-            Accounts localAccounts = new Accounts();
-            localAccounts = await _context.Accounts.FindAsync(accounts.Id);
-            localAccounts.Name = accounts.Name;
-            localAccounts.AccountTypeId=accounts.AccountTypeId;
-            localAccounts.Balance = accounts.Balance;
-            localAccounts.Description = accounts.Description;
-            localAccounts.UserId = accounts.UserId;
             await _context.SaveChangesAsync();
-        }
-        */
+        } 
     }
 }

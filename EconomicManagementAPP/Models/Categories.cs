@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EconomicManagementAPP.Models
 {
+    [Table("Categories", Schema = "dbo")]
     public class Categories
     {
         [Key]
@@ -14,5 +15,7 @@ namespace EconomicManagementAPP.Models
         [FirstCapitalLetter]
         [Remote(action: "VerificaryCategorie", controller: "Categories")]
         public string Name { get; set; }
+
+        public ICollection<Transactions> Transactions { get; set; }
     }
 }

@@ -35,7 +35,9 @@ namespace EconomicManagementAPP.Services
 
         public async Task<IEnumerable<T>> ListData()
         {
-            return await _context.Set<T>().ToListAsync();
+            var data = await _context.Set<T>().ToListAsync();
+            int i = 0;
+            return data;
         }
 
         public async Task Modify(int Id,T entity)

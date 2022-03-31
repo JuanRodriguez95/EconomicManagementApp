@@ -1,6 +1,7 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq.Expressions;
 
 namespace EconomicManagementAPP.Controllers
@@ -125,5 +126,7 @@ namespace EconomicManagementAPP.Controllers
             await repositorieCategories.Delete(Id);
             return RedirectToAction("Index");
         }
+
+        
     }
 }
