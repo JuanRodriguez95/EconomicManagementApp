@@ -1,6 +1,7 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace EconomicManagementAPP.Controllers
 {
@@ -34,9 +35,11 @@ namespace EconomicManagementAPP.Controllers
                 return View(operationTypes);
             }
 
+            Expression<Func<OperationTypes, bool>> expression = c => c.Name == operationTypes.Name;
+
             // Validamos si ya existe antes de registrar
             var operationTypeExist =
-               await repositorieOperationTypes.Exist(operationTypes.Description);
+               await repositorieOperationTypes.Exist(expression);
 
             if (operationTypeExist)
             {
@@ -55,15 +58,15 @@ namespace EconomicManagementAPP.Controllers
 
         // Hace que la validacion se active automaticamente desde el front
         [HttpGet]
-        public async Task<IActionResult> VerificaryOperationType(string Description)
+        public async Task<IActionResult> VerificaryOperationType(string Name)
         {
-
-            var operationType = await repositorieOperationTypes.Exist(Description);
+            Expression<Func<OperationTypes, bool>> expression = c => c.Name == Name;
+            var operationType = await repositorieOperationTypes.Exist(expression);
 
             if (operationType)
             {
                 // permite acciones directas entre front y back
-                return Json($"The Operation {Description} already exist");
+                return Json($"The Operation {Name} already exist");
             }
 
             return Json(true);
@@ -100,7 +103,7 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieOperationTypes.Modify(operationTypes);// el que llega
+            await repositorieOperationTypes.Modify(operationTypes.Id,operationTypes);// el que llega
             return RedirectToAction("Index");
         }
         // Eliminar

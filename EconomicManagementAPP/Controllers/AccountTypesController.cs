@@ -1,6 +1,7 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace EconomicManagementAPP.Controllers
 {
@@ -8,13 +9,11 @@ namespace EconomicManagementAPP.Controllers
     {
         private readonly RepositorieAccountTypes repositorieAccountTypes;
 
-        //Inicializamos l variable repositorieAccountTypes para despues inyectarle las funcionalidades de la interfaz
         public AccountTypesController(RepositorieAccountTypes repositorieAccountTypes)
         {
             this.repositorieAccountTypes = repositorieAccountTypes;
         }
 
-        // Creamos index para ejecutar la interfaz
         public async Task<IActionResult> Index()
         {
             var accountTypes = await repositorieAccountTypes.ListData();
@@ -32,70 +31,53 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(accountTypes);
             }
-
-            // Validamos si ya existe antes de registrar
-            var accountTypeExist =
-               await repositorieAccountTypes.Exist(accountTypes.Name);
-
+            Expression<Func<AccountTypes, bool>> expression = a => a.Name == accountTypes.Name;
+            var accountTypeExist = await repositorieAccountTypes.Exist(expression);
             if (accountTypeExist)
             {
-                // AddModelError ya viene predefinido en .net
-                // nameOf es el tipo del campo
                 ModelState.AddModelError(nameof(accountTypes.Name),
                     $"The account {accountTypes.Name} already exist.");
 
                 return View(accountTypes);
             }
             await repositorieAccountTypes.Create(accountTypes);
-            // Redireccionamos a la lista
             return RedirectToAction("Index");
         }
 
-        // Hace que la validacion se active automaticamente desde el front
         [HttpGet]
         public async Task<IActionResult> VerificaryAccountType(string Name)
         {
-            
-            var accountTypeExist = await repositorieAccountTypes.Exist(Name);
-
+            Expression<Func<AccountTypes, bool>> expression = a => a.Name == Name;
+            var accountTypeExist = await repositorieAccountTypes.Exist(expression);
             if (accountTypeExist)
             {
-                // permite acciones directas entre front y back
                 return Json($"The account {Name} already exist");
             }
-
             return Json(true);
         }
 
-        //Actualizar
-        //Este retorna la vista tanto del modify
         [HttpGet]
         public async Task<ActionResult> Modify(int id)
         {
             var userId = 1;
             var accountType = await repositorieAccountTypes.getById(id);
-
             if (accountType is null)
             { 
-                //Redireccio cuando esta vacio
                 return RedirectToAction("NotFound", "Home");
             }
-
             return View(accountType);
         }
-        //Este es el que modifica y retorna al index
+        
         [HttpPost]
         public async Task<ActionResult> Modify(AccountTypes accountTypes)
         {
             var userId = 1;
             var accountType = await repositorieAccountTypes.getById(accountTypes.Id);
-
             if (accountType is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
-            await repositorieAccountTypes.Modify(accountTypes);// el que llega
+            await repositorieAccountTypes.Modify(accountTypes.Id,accountTypes);// el que llega
             return RedirectToAction("Index");
         }
         // Eliminar
@@ -109,7 +91,6 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
             return View(account);
         }
         [HttpPost]
@@ -117,12 +98,10 @@ namespace EconomicManagementAPP.Controllers
         {
             var userId = 1;
             var account = await repositorieAccountTypes.getById(id);
-
             if (account is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
             await repositorieAccountTypes.Delete(id);
             return RedirectToAction("Index");
         }

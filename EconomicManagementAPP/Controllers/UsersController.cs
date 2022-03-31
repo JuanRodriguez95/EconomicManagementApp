@@ -1,6 +1,7 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace EconomicManagementAPP.Controllers
 {
@@ -36,21 +37,17 @@ namespace EconomicManagementAPP.Controllers
                 return View(users);
             }
 
-           
-            // Validamos si el usuario ya existe mediante el email, no enviamos parametros predefinidos, pero si el primer email que tome
-            var usersExist =
-               await repositorieUsers.Exist(users.Email);
+            Expression<Func<Users, bool>> expression = u => u.Email == users.Email;
+            var usersExist = await repositorieUsers.Exist(expression);
 
             if (usersExist)
             {
-                // Validamos la existencia del usuario mediante el email
                 ModelState.AddModelError(nameof(users.Email),
                     $"The account {users.Email} already exist.");
 
                 return View(users);
             }
             await repositorieUsers.Create(users);
-            // Redireccionamos a la lista de usuarios
             return RedirectToAction("Index");
         }
 
@@ -58,8 +55,8 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryUsers(string Email)
         {
-            
-            var usersExist = await repositorieUsers.Exist(Email);
+            Expression<Func<Users, bool>> expression = u => u.Email == Email;
+            var usersExist = await repositorieUsers.Exist(expression);
 
             if (usersExist)
             {
@@ -104,7 +101,7 @@ namespace EconomicManagementAPP.Controllers
                 return View(users);
             }
 
-            await repositorieUsers.Modify(users);// el que llega
+            await repositorieUsers.Modify(users.Id, users);// el que llega
             return RedirectToAction("Index");
         }
        

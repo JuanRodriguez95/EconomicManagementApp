@@ -68,7 +68,7 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieTransactions.Modify(transactions);// el que llega
+            await repositorieTransactions.Modify(transactions.Id,transactions);// el que llega
             return RedirectToAction("Index");
         }
         // Eliminar

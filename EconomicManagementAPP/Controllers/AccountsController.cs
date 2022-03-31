@@ -2,6 +2,7 @@
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq.Expressions;
 
 namespace EconomicManagementAPP.Controllers
 {
@@ -40,9 +41,9 @@ namespace EconomicManagementAPP.Controllers
                 return View(accounts);
             }
             accounts.UserId = 2;
-            // Validamos si ya existe antes de registrar
+            Expression<Func<Accounts, bool>> expression = a => a.Name == accounts.Name;
             var accountExist =
-               await repositorieAccounts.Exist(accounts.Name);
+               await repositorieAccounts.Exist(expression);
 
             if (accountExist)
             {
@@ -58,15 +59,14 @@ namespace EconomicManagementAPP.Controllers
             return RedirectToAction("Index");
         }
 
-        // Hace que la validacion se active automaticamente desde el front
         [HttpGet]
         public async Task<IActionResult> VerificaryAccount(string Name)
-        {           
-            var accountExist = await repositorieAccounts.Exist(Name);
+        {
+            Expression<Func<Accounts, bool>> expression = a => a.Name == Name;
+            var accountExist = await repositorieAccounts.Exist(expression);
 
             if (accountExist)
             {
-                // permite acciones directas entre front y back
                 return Json($"The account {Name} already exist");
             }
 
@@ -99,7 +99,7 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieAccounts.Modify(accounts);// el que llega
+            await repositorieAccounts.Modify(accounts.Id, accounts);// el que llega
             return RedirectToAction("Index");
         }
         // Eliminar

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EconomicManagementAPP.Services
 {
     
-    public class RepositorieOperationTypes : Repositorie<OperationTypes>
+    public class RepositorieOperationTypes : GenericRepositorie<OperationTypes>
     {
         private readonly EconomicContext _context;
 
@@ -16,7 +16,7 @@ namespace EconomicManagementAPP.Services
             _context = context;
         }
 
-
+        /*
         // El async va acompañado de Task
         public async Task<bool> Exist(string name)
         {
@@ -39,6 +39,7 @@ namespace EconomicManagementAPP.Services
             localOperationTypes.Description = operationTypes.Description;
             await _context.SaveChangesAsync();
         }
+        */
     }
 
 

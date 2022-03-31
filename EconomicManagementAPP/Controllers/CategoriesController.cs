@@ -1,6 +1,7 @@
 ﻿using EconomicManagementAPP.Models;
 using EconomicManagementAPP.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace EconomicManagementAPP.Controllers
 {
@@ -33,9 +34,10 @@ namespace EconomicManagementAPP.Controllers
                 return View(categories);
             }
 
+            Expression<Func<Categories, bool>> expression = c => c.Name == categories.Name;
             // Validamos si ya existe antes de registrar
             var categoriesExist =
-               await repositorieCategories.Exist(categories.Name);
+               await repositorieCategories.Exist(expression);
 
             if (categoriesExist)
             {
@@ -55,7 +57,9 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryCategorie(string Name)
         {
-            var categoriesExist = await repositorieCategories.Exist(Name);
+            Expression<Func<Categories, bool>> expression = c => c.Name == Name;
+
+            var categoriesExist = await repositorieCategories.Exist(expression);
 
             if (categoriesExist)
             {
@@ -92,7 +96,7 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieCategories.Modify(categories);// el que llega
+            await repositorieCategories.Modify(categories.Id, categories);// el que llega
             return RedirectToAction("Index");
         }
         // Eliminar

@@ -3,10 +3,11 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using EconomicManagementAPP.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EconomicManagementAPP.Services
 {
-    public class RepositorieUsers : Repositorie<Users>
+    public class RepositorieUsers : GenericRepositorie<Users>
     {
         
         private EconomicContext _context;
@@ -16,6 +17,7 @@ namespace EconomicManagementAPP.Services
             _context = context;
         }
 
+        /*
         public async Task<bool> Exist(string email)
         {
             var result = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
@@ -28,7 +30,10 @@ namespace EconomicManagementAPP.Services
                 return true;
             }
         }
+        */
+        
 
+        /*
         public async Task Modify(Users users)
         {
             Users localUser = new Users();
@@ -38,7 +43,7 @@ namespace EconomicManagementAPP.Services
             localUser.Password = users.Password;
             await _context.SaveChangesAsync();
         }
-
+        */
         public async Task<Users> Login(string email, string password)
         {
             var result = await _context.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();

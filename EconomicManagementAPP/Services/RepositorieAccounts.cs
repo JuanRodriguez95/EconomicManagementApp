@@ -8,7 +8,7 @@ namespace EconomicManagementAPP.Services
 {
     
 
-    public class RepositorieAccounts : Repositorie<Accounts>
+    public class RepositorieAccounts : GenericRepositorie<Accounts>
     {
         
         private readonly EconomicContext _context;
@@ -20,6 +20,7 @@ namespace EconomicManagementAPP.Services
 
 
         // El async va acompañado de Task
+        /*
         public async Task<bool> Exist(string name)
         {
             var result = await _context.Accounts.Where(u => u.Name == name).FirstOrDefaultAsync();
@@ -33,6 +34,8 @@ namespace EconomicManagementAPP.Services
             }
         }
 
+        
+
         public async Task Modify(Accounts accounts)
         {
             Accounts localAccounts = new Accounts();
@@ -44,5 +47,6 @@ namespace EconomicManagementAPP.Services
             localAccounts.UserId = accounts.UserId;
             await _context.SaveChangesAsync();
         }
+        */
     }
 }

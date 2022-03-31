@@ -6,7 +6,7 @@ using EconomicManagementAPP.Data;
 namespace EconomicManagementAPP.Services
 {
     
-    public class RepositorieTransactions : Repositorie<Transactions>
+    public class RepositorieTransactions : GenericRepositorie<Transactions>
     {
         private readonly EconomicContext _context;
 
@@ -15,6 +15,7 @@ namespace EconomicManagementAPP.Services
             _context = context;
         }
 
+        /*
         public async Task Modify(Transactions transactions)
         {
             Transactions localTransactions = new Transactions();
@@ -27,5 +28,6 @@ namespace EconomicManagementAPP.Services
             localTransactions.CategoryId = transactions.CategoryId;
             await _context.SaveChangesAsync();
         }
+        */
     }
 }
