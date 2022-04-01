@@ -18,11 +18,102 @@ Las tecnologias utilzadas en este proyecto son:
 
 Dentro del desarrollo de este proyecto se trataron los siguientes temas:
 * Patron de diseño MVC 
+
+###### Modelo
+```c#
+using System.ComponentModel.DataAnnotations;
+
+namespace EconomicManagementAPP.Models
+{
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage="{0}")]
+        [EmailAddress(ErrorMessage ="Invalid Format Email")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "{0}")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
+}
+
+```
+
+##### Vista
+
+![sd](https://user-images.githubusercontent.com/78867527/161346926-522e832f-7436-4581-ad30-50f603982753.jpg)
+
+##### Controlador
+```c#
+[HttpPost]
+ public async Task<IActionResult> Login (LoginViewModel loginViewModel)
+ {
+     if (!ModelState.IsValid)
+     {
+         return View(loginViewModel);
+     }
+     var result = await repositorieUsers.Login(loginViewModel.Email, loginViewModel.Password);
+     if(result is null)
+     {
+          ModelState.AddModelError(String.Empty, "Wrong Email or Password");
+          return View(loginViewModel);
+     }
+     else
+     {
+      HttpContext.Session.SetInt32("user",result.Id);
+      HttpContext.Session.SetString("loged", "true");
+      return RedirectToAction("Create","Accounts");
+      }
+  }
+
+```
+
 * Implementacion de Interfaces e Interfaces Genericas.
-* Herencia de Clases
+##### Interfaz Generica
+```c#
+using System.Linq.Expressions;
+
+namespace EconomicManagementAPP.Service
+{
+    public interface IGenericRepositorie<T> where T : class
+    {
+        Task Create(T entity); // Se agrega task por el asincronismo
+        Task<IEnumerable<T>> ListData();
+        Task<T> getById(int Id); // para el modify
+        Task Delete(int Id);
+        Task Modify(int Id, T entity);
+        Task<bool> Exist(Expression<Func<T, bool>> expression);
+    }
+}
+```
 * Entity Framework 6 
+##### Repositorio Generico, implementacion de la interfaz generica
+```c#
+using EconomicManagementAPP.Data;
+using EconomicManagementAPP.Service;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using System.Reflection;
+
+namespace EconomicManagementAPP.Services
+{
+    public class GenericRepositorie<T> : IGenericRepositorie<T> where T : class
+    {
+        private EconomicContext _context;
+
+        public GenericRepositorie(EconomicContext context)
+        {
+            _context = context;
+        }
+        public async Task Create(T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+    }
+}
+```
 * Gestion de bases de datos SQL SERVER.
-* variables Session.
+
 ## Diagrama MER (Modelo Entidad Relacion) EconomicManagementDB
 
 ![DiagramaMER](https://user-images.githubusercontent.com/78867527/161315374-8497ec63-eaf7-46c1-a22c-633acd6b9e61.png)
