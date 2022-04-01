@@ -1,8 +1,5 @@
 ﻿using EconomicManagementAPP.Models;
-using Dapper;
-using Microsoft.Data.SqlClient;
 using EconomicManagementAPP.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace EconomicManagementAPP.Services
 {

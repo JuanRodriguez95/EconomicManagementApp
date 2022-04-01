@@ -37,7 +37,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(categories);
             }
-            Expression<Func<Categories, bool>> expression = c => c.Name == categories.Name;
+            Expression<Func<Categories, bool>> expression = categoriesDb => categoriesDb.Name == categories.Name;
             var categoriesExist =
                await repositorieCategories.Exist(expression);
             if (categoriesExist)
@@ -54,7 +54,7 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryCategory(string name)
         {
-            Expression<Func<Categories, bool>> expression = c => c.Name == name;
+            Expression<Func<Categories, bool>> expression = categoriesDb => categoriesDb.Name == name;
             var categoriesExist = await repositorieCategories.Exist(expression);
 
             if (categoriesExist)

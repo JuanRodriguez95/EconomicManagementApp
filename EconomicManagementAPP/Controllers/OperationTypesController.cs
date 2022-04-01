@@ -37,7 +37,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(operationTypes);
             }
-            Expression<Func<OperationTypes, bool>> expression = c => c.Name == operationTypes.Name;
+            Expression<Func<OperationTypes, bool>> expression = operationTypesDb => operationTypesDb.Name == operationTypes.Name;
             var operationTypeExist =
                await repositorieOperationTypes.Exist(expression);
             if (operationTypeExist)
@@ -54,7 +54,7 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryOperationType(string Name)
         {
-            Expression<Func<OperationTypes, bool>> expression = c => c.Name == Name;
+            Expression<Func<OperationTypes, bool>> expression = operationTypesDb => operationTypesDb.Name == Name;
             var operationType = await repositorieOperationTypes.Exist(expression);
             if (operationType)
             {

@@ -37,7 +37,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(accountTypes);
             }
-            Expression<Func<AccountTypes, bool>> expression = a => a.Name == accountTypes.Name;
+            Expression<Func<AccountTypes, bool>> expression = accountTypesDb => accountTypesDb.Name == accountTypes.Name;
             var accountTypeExist = await repositorieAccountTypes.Exist(expression);
             if (accountTypeExist)
             {
@@ -53,7 +53,7 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryAccountType(string Name)
         {
-            Expression<Func<AccountTypes, bool>> expression = a => a.Name == Name;
+            Expression<Func<AccountTypes, bool>> expression = accountTypesDb => accountTypesDb.Name == Name;
             var accountTypeExist = await repositorieAccountTypes.Exist(expression);
             if (accountTypeExist)
             {

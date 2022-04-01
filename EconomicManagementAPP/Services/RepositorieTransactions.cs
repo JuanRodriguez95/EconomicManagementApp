@@ -20,7 +20,7 @@ namespace EconomicManagementAPP.Services
 
         public async Task<IEnumerable<Transactions>> getTransactionByUserId(int userId)
         {
-            var transaction = await _context.Transactions.Where(t => t.UserId == userId).ToListAsync();
+            var transaction = await _context.Transactions.Where(transactionDb => transactionDb.UserId == userId).ToListAsync();
             return transaction;
         }
     }

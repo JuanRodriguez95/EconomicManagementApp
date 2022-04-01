@@ -1,16 +1,11 @@
 ﻿using EconomicManagementAPP.Models;
-using Dapper;
-using Microsoft.Data.SqlClient;
 using EconomicManagementAPP.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace EconomicManagementAPP.Services
 {
-    
-
     public class RepositorieAccounts : GenericRepositorie<Accounts>
     {
-        
         private readonly EconomicContext _context;
 
         public RepositorieAccounts(EconomicContext context) : base(context)

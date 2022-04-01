@@ -34,7 +34,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(users);
             }
-            Expression<Func<Users, bool>> expression = u => u.Email == users.Email;
+            Expression<Func<Users, bool>> expression = userDb => userDb.Email == users.Email;
             var usersExist = await repositorieUsers.Exist(expression);
             if (usersExist)
             {
@@ -50,7 +50,7 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryUsers(string email)
         {
-            Expression<Func<Users, bool>> expression = u => u.Email == email;
+            Expression<Func<Users, bool>> expression = userDb => userDb.Email == email;
             var usersExist = await repositorieUsers.Exist(expression);
             if (usersExist)
             {
@@ -139,9 +139,9 @@ namespace EconomicManagementAPP.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> LogOut(Users user)
+        public IActionResult LogOut(Users user)
         {
-            string loginFlag = HttpContext.Session.GetString("loged");
+            string loginFlag =  HttpContext.Session.GetString("loged");
             if (loginFlag == "true")
             {
                 return View(user);
@@ -150,7 +150,7 @@ namespace EconomicManagementAPP.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogOut()
+        public IActionResult LogOut()
         {
             HttpContext.Session.Clear();   
             return RedirectToAction("Index", "Home");

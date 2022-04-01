@@ -90,7 +90,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            await repositorieTransactions.Modify(transactions.Id,transactions);// el que llega
+            await repositorieTransactions.Modify(transactions.Id,transactions);
             return RedirectToAction("Index");
         }
 
@@ -119,17 +119,17 @@ namespace EconomicManagementAPP.Controllers
         private async Task<IEnumerable<SelectListItem>> GetAccounts(int userId)
         {
             var accounts = await repositorieAccounts.GetAccounts(userId);
-            return accounts.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+            return accounts.Select(selectAccount => new SelectListItem(selectAccount.Name, selectAccount.Id.ToString()));
         }
         private async Task<IEnumerable<SelectListItem>> GetCategories()
         {
             var categories = await repositorieCategories.ListData();
-            return categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+            return categories.Select(selectCategorie => new SelectListItem(selectCategorie.Name, selectCategorie.Id.ToString()));
         }
         private async Task<IEnumerable<SelectListItem>> GetOperationTypes()
         {
             var operationTypes = await repositorieOperationTypes.ListData();
-            return operationTypes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+            return operationTypes.Select(selectOperation => new SelectListItem(selectOperation.Name, selectOperation.Id.ToString()));
             
         }
     }

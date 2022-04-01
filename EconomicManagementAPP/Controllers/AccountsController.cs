@@ -49,7 +49,7 @@ namespace EconomicManagementAPP.Controllers
                 return View(accounts);
             }
             accounts.UserId = (int)HttpContext.Session.GetInt32("user");
-            Expression<Func<Accounts, bool>> expression = a => a.Name == accounts.Name;
+            Expression<Func<Accounts, bool>> expression = accountDb => accountDb.Name == accounts.Name;
             var accountExist =
                await repositorieAccounts.Exist(expression);
 
@@ -67,7 +67,7 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> VerificaryAccount(string name)
         {
-            Expression<Func<Accounts, bool>> expression = a => a.Name == name;
+            Expression<Func<Accounts, bool>> expression = accountDb => accountDb.Name == name;
             var accountExist = await repositorieAccounts.Exist(expression);
 
             if (accountExist)
@@ -136,7 +136,7 @@ namespace EconomicManagementAPP.Controllers
         private async Task<IEnumerable<SelectListItem>> GetAccountTypes()
         {
             var accountTypes = await repositorieAccountTypes.ListData();
-            return accountTypes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+            return accountTypes.Select(selectAccountType => new SelectListItem(selectAccountType.Name, selectAccountType.Id.ToString()));
         }
 
 
