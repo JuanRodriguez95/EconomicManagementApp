@@ -36,7 +36,6 @@ namespace EconomicManagementAPP.Services
         public async Task<IEnumerable<T>> ListData()
         {
             var data = await _context.Set<T>().ToListAsync();
-            int i = 0;
             return data;
         }
 

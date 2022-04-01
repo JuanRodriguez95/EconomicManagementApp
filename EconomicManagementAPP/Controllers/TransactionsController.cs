@@ -27,8 +27,8 @@ namespace EconomicManagementAPP.Controllers
             string loginFlag = HttpContext.Session.GetString("loged");
             if (loginFlag == "true")
             {
-                var transactions = await repositorieTransactions.ListData();
-                int i = 0;
+                int userId = (int)HttpContext.Session.GetInt32("user");
+                var transactions = await repositorieTransactions.getTransactionByUserId(userId);
                 return View(transactions);
             }
             return RedirectToAction("Login", "Users");
@@ -65,6 +65,7 @@ namespace EconomicManagementAPP.Controllers
             {
                 return RedirectToAction("NoEncontrado", "Home");
             }
+            transactions.UserId= userId;
             await repositorieAccounts.UpdateAccountTotal(transactions);
             await repositorieTransactions.Create(transactions);
             return RedirectToAction("Index");

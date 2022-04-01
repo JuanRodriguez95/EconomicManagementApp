@@ -137,5 +137,23 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("Create","Accounts");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut(Users user)
+        {
+            string loginFlag = HttpContext.Session.GetString("loged");
+            if (loginFlag == "true")
+            {
+                return View(user);
+            }
+            return RedirectToAction("Login", "Users");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            HttpContext.Session.Clear();   
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

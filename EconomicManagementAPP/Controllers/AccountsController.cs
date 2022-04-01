@@ -8,10 +8,6 @@ namespace EconomicManagementAPP.Controllers
 {
     public class AccountsController : Controller
     {
-        /**
-         * Declaracion de variables "Repositorie" para interaccion con la base de datos
-         * 
-         */
         private readonly RepositorieAccounts repositorieAccounts;
         private readonly RepositorieAccountTypes repositorieAccountTypes;
 
@@ -26,7 +22,6 @@ namespace EconomicManagementAPP.Controllers
         public async Task<IActionResult> Index()
         {
             string loginFlag = HttpContext.Session.GetString("loged");
-            
             if (loginFlag == "true")
             {
                 int userId = (int)HttpContext.Session.GetInt32("user");
