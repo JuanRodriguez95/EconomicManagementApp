@@ -15,8 +15,12 @@ builder.Services.AddTransient<RepositorieOperationTypes>();
 builder.Services.AddTransient<RepositorieAccounts>();
 builder.Services.AddTransient<RepositorieCategories>();
 builder.Services.AddTransient<RepositorieTransactions>();
-builder.Services.AddTransient<IUserStore<Users>, UserStore>();
-builder.Services.AddIdentityCore<Users>();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(5);
+});
+
+
 
 
 builder.Services.AddDbContext<EconomicContext>(options =>
@@ -38,6 +42,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

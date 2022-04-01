@@ -12,8 +12,9 @@ namespace EconomicManagementAPP.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required(ErrorMessage = "{0} is required")]
-       //[FirstCapitalLetter]
-       
+        //[FirstCapitalLetter]
+
+        [Remote(action: "VerificaryUsers", controller: "Users")]
         public string Email { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         //[FirstCapitalLetter]

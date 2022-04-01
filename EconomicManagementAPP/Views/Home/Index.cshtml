@@ -2,7 +2,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+ <h1 class="visually-hidden">Heroes examples</h1>
+
+  <div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="https://www.fixedbuffer.com/wp-content/uploads/2019/06/reflexion.png" alt="" width="72" height="57">
+    <h1 class="display-5 fw-bold">EconomicManagementApp</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4"> EconomicManagementApp is an MVC web application developed with ASP.Net Core 6, Entity Framework and SQLServer for the FedeSoft group and the S1ESA company. </p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-outline-secondary btn-lg px-4" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+        <a class="btn btn-outline-secondary btn-lg px-4" asp-area="" asp-controller="Users" asp-action="Create">SignUp</a>
+
+      </div>
+    </div>
+  </div>
 </div>

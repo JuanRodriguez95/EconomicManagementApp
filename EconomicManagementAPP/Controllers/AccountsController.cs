@@ -8,26 +8,39 @@ namespace EconomicManagementAPP.Controllers
 {
     public class AccountsController : Controller
     {
+        /**
+         * Declaracion de variables "Repositorie" para interaccion con la base de datos
+         * 
+         */
         private readonly RepositorieAccounts repositorieAccounts;
         private readonly RepositorieAccountTypes repositorieAccountTypes;
 
-        //Inicializamos l variable repositorieAccountTypes para despues inyectarle las funcionalidades de la interfaz
+        
         public AccountsController(RepositorieAccounts repositorieAccounts, RepositorieAccountTypes repositorieAccountTypes)
         {
             this.repositorieAccounts = repositorieAccounts;
             this.repositorieAccountTypes = repositorieAccountTypes;
         }
 
-        // Creamos index para ejecutar la interfaz
+        
         public async Task<IActionResult> Index()
-        {            
-            var accounts = await repositorieAccounts.ListData();
-            return View(accounts);
+        {
+            string loginFlag = HttpContext.Session.GetString("loged");
+            
+            if (loginFlag == "true")
+            {
+                int userId = (int)HttpContext.Session.GetInt32("user");
+                var accounts = await repositorieAccounts.GetAccounts(userId);
+                return View(accounts);
+            }
+            return RedirectToAction("Login", "Users");
+            
         }
+
+        
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var userId = 2;
             var modelAccounTypes = new AccountCreationViewModel();
             modelAccounTypes.AccountTypes = await GetAccountTypes();
             return View(modelAccounTypes);
@@ -40,45 +53,41 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(accounts);
             }
-            accounts.UserId = 2;
+            accounts.UserId = (int)HttpContext.Session.GetInt32("user");
             Expression<Func<Accounts, bool>> expression = a => a.Name == accounts.Name;
             var accountExist =
                await repositorieAccounts.Exist(expression);
 
             if (accountExist)
             {
-                // AddModelError ya viene predefinido en .net
-                // nameOf es el tipo del campo
                 ModelState.AddModelError(nameof(accounts.Name),
                     $"The account {accounts.Name} already exist.");
 
                 return View(accounts);
             }
             await repositorieAccounts.Create(accounts);
-            // Redireccionamos a la lista
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<IActionResult> VerificaryAccount(string Name)
+        public async Task<IActionResult> VerificaryAccount(string name)
         {
-            Expression<Func<Accounts, bool>> expression = a => a.Name == Name;
+            Expression<Func<Accounts, bool>> expression = a => a.Name == name;
             var accountExist = await repositorieAccounts.Exist(expression);
 
             if (accountExist)
             {
-                return Json($"The account {Name} already exist");
+                return Json($"The account {name} already exist");
             }
 
             return Json(true);
         }
 
-        //Actualizar
-        //Este retorna la vista tanto del modify
+
         [HttpGet]
-        public async Task<ActionResult> Modify(int Id)
+        public async Task<ActionResult> Modify(int id)
         {            
-            var account = await repositorieAccounts.getById(Id);
+            var account = await repositorieAccounts.getById(id);
 
             if (account is null)
             {
@@ -88,7 +97,7 @@ namespace EconomicManagementAPP.Controllers
 
             return View(account);
         }
-        //Este es el que modifica y retorna al index
+
         [HttpPost]
         public async Task<ActionResult> Modify(Accounts accounts)
         {           
@@ -99,14 +108,14 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieAccounts.Modify(accounts.Id, accounts);// el que llega
+            await repositorieAccounts.Modify(accounts.Id, accounts);
             return RedirectToAction("Index");
         }
-        // Eliminar
+
         [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(int id)
         {            
-            var account = await repositorieAccounts.getById(Id);
+            var account = await repositorieAccounts.getById(id);
 
             if (account is null)
             {
@@ -116,16 +125,16 @@ namespace EconomicManagementAPP.Controllers
             return View(account);
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteAccount(int Id)
+        public async Task<IActionResult> DeleteAccount(int id)
         {            
-            var account = await repositorieAccounts.getById(Id);
+            var account = await repositorieAccounts.getById(id);
 
             if (account is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieAccounts.Delete(Id);
+            await repositorieAccounts.Delete(id);
             return RedirectToAction("Index");
         }
 

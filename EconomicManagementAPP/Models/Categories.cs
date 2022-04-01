@@ -13,7 +13,7 @@ namespace EconomicManagementAPP.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [FirstCapitalLetter]
-        [Remote(action: "VerificaryCategorie", controller: "Categories")]
+        [Remote(action: "VerificaryCategory", controller: "Categories")]
         public string Name { get; set; }
 
         public ICollection<Transactions> Transactions { get; set; }

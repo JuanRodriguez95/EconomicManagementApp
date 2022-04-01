@@ -16,8 +16,14 @@ namespace EconomicManagementAPP.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var accountTypes = await repositorieAccountTypes.ListData();
-            return View(accountTypes);
+            string loginFlag = HttpContext.Session.GetString("loged");
+            if (loginFlag == "true")
+            {
+                var accountTypes = await repositorieAccountTypes.ListData();
+                return View(accountTypes);
+            }
+            return RedirectToAction("Login", "Users");
+            
         }
         public IActionResult Create()
         {
@@ -59,7 +65,6 @@ namespace EconomicManagementAPP.Controllers
         [HttpGet]
         public async Task<ActionResult> Modify(int id)
         {
-            var userId = 1;
             var accountType = await repositorieAccountTypes.getById(id);
             if (accountType is null)
             { 
@@ -71,20 +76,18 @@ namespace EconomicManagementAPP.Controllers
         [HttpPost]
         public async Task<ActionResult> Modify(AccountTypes accountTypes)
         {
-            var userId = 1;
             var accountType = await repositorieAccountTypes.getById(accountTypes.Id);
             if (accountType is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-            await repositorieAccountTypes.Modify(accountTypes.Id,accountTypes);// el que llega
+            await repositorieAccountTypes.Modify(accountTypes.Id,accountTypes);
             return RedirectToAction("Index");
         }
-        // Eliminar
+        
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var userId = 1;
             var account = await repositorieAccountTypes.getById(id);
 
             if (account is null)
@@ -93,10 +96,10 @@ namespace EconomicManagementAPP.Controllers
             }
             return View(account);
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteAccount(int id)
         {
-            var userId = 1;
             var account = await repositorieAccountTypes.getById(id);
             if (account is null)
             {

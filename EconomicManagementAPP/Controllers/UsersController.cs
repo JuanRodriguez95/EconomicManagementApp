@@ -9,20 +9,16 @@ namespace EconomicManagementAPP.Controllers
     public class UsersController: Controller
     {
         private readonly RepositorieUsers repositorieUsers;
-        private readonly UserManager<Users> userManager;
+  
 
-        //Inicializamos  repositorieUsers para despues inyectarle las funcionalidades de la interfaz
-        public UsersController(RepositorieUsers repositorieUsers,UserManager<Users> userManager)
+        public UsersController(RepositorieUsers repositorieUsers)
         {
             this.repositorieUsers = repositorieUsers;
-            this.userManager = userManager;       
+           
         }
 
-        // Creamos index para ejecutar la interfaz
-        // No enviamos parametros por el getUser ya que lo traemos todo mediante la interfaz
         public async Task<IActionResult> Index()        
-        {
-            
+        { 
             var users = await repositorieUsers.ListData();
             return View(users);
         }
@@ -38,64 +34,39 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(users);
             }
-
             Expression<Func<Users, bool>> expression = u => u.Email == users.Email;
             var usersExist = await repositorieUsers.Exist(expression);
-
             if (usersExist)
             {
                 ModelState.AddModelError(nameof(users.Email),
                     $"The account {users.Email} already exist.");
-
                 return View(users);
             }
-            var resultado = await userManager.CreateAsync(users, password: users.Password);
-
-            if (resultado.Succeeded)
-            {
-               // await signInManager.SignInAsync(usuario, isPersistent: true);
-                return RedirectToAction("Index", "Transacciones");
-            }
-            else
-            {
-                foreach (var error in resultado.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-
-                return View(users);
-            }
-            //await repositorieUsers.Create(users);
-            return RedirectToAction("Index");
+            await repositorieUsers.Create(users);
+            return RedirectToAction("Login");
         }
 
         
         [HttpGet]
-        public async Task<IActionResult> VerificaryUsers(string Email)
+        public async Task<IActionResult> VerificaryUsers(string email)
         {
-            Expression<Func<Users, bool>> expression = u => u.Email == Email;
+            Expression<Func<Users, bool>> expression = u => u.Email == email;
             var usersExist = await repositorieUsers.Exist(expression);
-
             if (usersExist)
             {
-                return Json($"The account {Email} already exist.");
+                return Json($"The account {email} already exist.");
             }
-
             return Json(true);
         }
 
 
         [HttpGet]
-        public async Task<ActionResult> Modify(int Id)        {
-            
-            var user = await repositorieUsers.getById(Id);
-
+        public async Task<ActionResult> Modify(int id)        {
+            var user = await repositorieUsers.getById(id);
             if (user is null)
             {
-                //Redireccio cuando esta vacio
                 return RedirectToAction("NotFound", "Home");
             }
-
             return View(user);
         }
         
@@ -103,17 +74,14 @@ namespace EconomicManagementAPP.Controllers
         public async Task<ActionResult> Modify(Users users)
         {           
             var user = await repositorieUsers.getById(users.Id);
-
             if (user is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
             if (!ModelState.IsValid)
             {
                 return View(users);
             }
-
             await repositorieUsers.Modify(users.Id, users);
             return RedirectToAction("Index");
         }
@@ -121,10 +89,9 @@ namespace EconomicManagementAPP.Controllers
         
         
         [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {            
-            var user = await repositorieUsers.getById(Id);
-
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = await repositorieUsers.getById(id);
             if (user is null)
             {
                 return RedirectToAction("NotFound", "Home");
@@ -133,16 +100,14 @@ namespace EconomicManagementAPP.Controllers
             return View(user);
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(int Id)
+        public async Task<IActionResult> DeleteUser(int id)
         {          
-            var user = await repositorieUsers.getById(Id);
-
+            var user = await repositorieUsers.getById(id);
             if (user is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
-            await repositorieUsers.Delete(Id);
+            await repositorieUsers.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -167,6 +132,8 @@ namespace EconomicManagementAPP.Controllers
             }
             else
             {
+                HttpContext.Session.SetInt32("user",result.Id);
+                HttpContext.Session.SetString("loged", "true");
                 return RedirectToAction("Create","Accounts");
             }
         }

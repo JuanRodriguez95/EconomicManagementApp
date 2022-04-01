@@ -13,7 +13,7 @@ namespace EconomicManagementAPP.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [FirstCapitalLetter]
-        [Remote(action: "VerificaryAccountType", controller: "AccountTypes")]//Activamos la validacion se dispara peticion http hacia el back 
+        [Remote(action: "VerificaryAccountType", controller: "AccountTypes")]
         public string Name { get; set; }
 
         public ICollection<Accounts> Accounts { get; set; }

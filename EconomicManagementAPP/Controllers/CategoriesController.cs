@@ -10,17 +10,20 @@ namespace EconomicManagementAPP.Controllers
     {
         private readonly RepositorieCategories repositorieCategories;
 
-        //Inicializamos l variable repositorieAccountTypes para despues inyectarle las funcionalidades de la interfaz
         public CategoriesController(RepositorieCategories repositorieCategories)
         {
             this.repositorieCategories = repositorieCategories;
         }
 
-        // Creamos index para ejecutar la interfaz
-        public async Task<IActionResult> Index()
+       public async Task<IActionResult> Index()
         {
-            var categories = await repositorieCategories.ListData();
-            return View(categories);
+            string loginFlag = HttpContext.Session.GetString("loged");
+            if (loginFlag == "true")
+            {
+                var categories = await repositorieCategories.ListData();
+                return View(categories);
+            }
+            return RedirectToAction("Login", "Users");
         }
         public IActionResult Create()
         {
@@ -34,96 +37,75 @@ namespace EconomicManagementAPP.Controllers
             {
                 return View(categories);
             }
-
             Expression<Func<Categories, bool>> expression = c => c.Name == categories.Name;
-            // Validamos si ya existe antes de registrar
             var categoriesExist =
                await repositorieCategories.Exist(expression);
-
             if (categoriesExist)
             {
-                // AddModelError ya viene predefinido en .net
-                // nameOf es el tipo del campo
                 ModelState.AddModelError(nameof(categories.Name),
                     $"The categorie {categories.Name} already exist.");
 
                 return View(categories);
             }
             await repositorieCategories.Create(categories);
-            // Redireccionamos a la lista
             return RedirectToAction("Index");
         }
 
-        // Hace que la validacion se active automaticamente desde el front
         [HttpGet]
-        public async Task<IActionResult> VerificaryCategorie(string Name)
+        public async Task<IActionResult> VerificaryCategory(string name)
         {
-            Expression<Func<Categories, bool>> expression = c => c.Name == Name;
-
+            Expression<Func<Categories, bool>> expression = c => c.Name == name;
             var categoriesExist = await repositorieCategories.Exist(expression);
 
             if (categoriesExist)
-            {
-                // permite acciones directas entre front y back
-                return Json($"The categories {Name} already exist");
+            { 
+                return Json($"The categories {name} already exist");
             }
-
             return Json(true);
         }
 
-        //Actualizar
-        //Este retorna la vista tanto del modify
         [HttpGet]
-        public async Task<ActionResult> Modify(int Id)
+        public async Task<ActionResult> Modify(int id)
         {
-            var categorie = await repositorieCategories.getById(Id);
-
+            var categorie = await repositorieCategories.getById(id);
             if (categorie is null)
             {
-                //Redireccio cuando esta vacio
                 return RedirectToAction("NotFound", "Home");
             }
-
             return View(categorie);
         }
-        //Este es el que modifica y retorna al index
+
         [HttpPost]
         public async Task<ActionResult> Modify(Categories categories)
         {
             var categorie = await repositorieCategories.getById(categories.Id);
-
             if (categorie is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
-            await repositorieCategories.Modify(categories.Id, categories);// el que llega
+            await repositorieCategories.Modify(categories.Id, categories);
             return RedirectToAction("Index");
         }
-        // Eliminar
-        [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var categorie = await repositorieCategories.getById(Id);
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var categorie = await repositorieCategories.getById(id);
             if (categorie is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
             return View(categorie);
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteCategories(int Id)
+        public async Task<IActionResult> DeleteCategories(int id)
         {
-            var categorie = await repositorieCategories.getById(Id);
-
+            var categorie = await repositorieCategories.getById(id);
             if (categorie is null)
             {
                 return RedirectToAction("NotFound", "Home");
             }
-
-            await repositorieCategories.Delete(Id);
+            await repositorieCategories.Delete(id);
             return RedirectToAction("Index");
         }
 

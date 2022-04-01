@@ -15,7 +15,9 @@ namespace EconomicManagementAPP.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            
+                return View(); 
+            
         }
 
         public IActionResult Privacy()
@@ -23,7 +25,6 @@ namespace EconomicManagementAPP.Controllers
             return View();
         }
 
-        // Interfaz para error de no encontrar el id
         public IActionResult NotFound()
         {
             return View();

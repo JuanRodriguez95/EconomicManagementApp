@@ -27,7 +27,7 @@ namespace EconomicManagementAPP.Services
         public async Task UpdateAccountTotal(Transactions transactions)
         {
             var account = await _context.Accounts.FindAsync(transactions.AccountId);
-            if(transactions.OperationTypeId == 2)
+            if(transactions.OperationTypeId == 1)
             {
                 account.Balance = account.Balance + transactions.Total;
             }
