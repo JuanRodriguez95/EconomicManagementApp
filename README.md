@@ -113,7 +113,6 @@ namespace EconomicManagementAPP.Services
 }
 ```
 * Gestion de bases de datos SQL SERVER.
-
 ## Diagrama MER (Modelo Entidad Relacion) EconomicManagementDB
 
 ![DiagramaMER](https://user-images.githubusercontent.com/78867527/161315374-8497ec63-eaf7-46c1-a22c-633acd6b9e61.png)
@@ -121,6 +120,7 @@ namespace EconomicManagementAPP.Services
 ***
 ## Ejecucion
 1. **Ejecutar el script EconomicManagementDB**
+https://github.com/JuanRodriguez95/EconomicManagementApp/blob/main/EconomicManagementDB.sql
 2. **Configurar la conexion en appsettings.Development.json especificando el nombre del server y desmas atributos de seguridad**
 
 ![cadena](https://user-images.githubusercontent.com/78867527/161320919-190b262e-02c3-477a-bda9-abcd54464c15.png)
