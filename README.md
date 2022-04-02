@@ -5,7 +5,12 @@ Desarrollo con ASP.NET Core 6 MVC, SQLServer y EntityFramework para S1ESA y el s
 
 ## Descripcion
 
-Este proyecto es el resultado de todo lo aprendido durante el Bootcam de FedeSoft para la empresa SIESA, si bien el proyecto aun esta en desarrollo, me esforce por implementar la mayor parte de temas que se trataron en este proceso de formacion. 
+Este proyecto es el resultado de todo lo aprendido durante el Bootcam de FedeSoft para la empresa SIESA, si bien el proyecto aun esta en desarrollo, me esforce por implementar la mayor parte de temas que se trataron en este proceso de formacion.
+
+EconomicManagementApp es una WebApp para la gestion de transacciones sobre una o varias cuentas de un usuario.
+
+![transaction](https://user-images.githubusercontent.com/78867527/161384357-05b0e8c2-c432-4614-86e5-164679d8da08.jpg)
+
 
 ## Tecnologias
 
